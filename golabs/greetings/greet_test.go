@@ -1,8 +1,10 @@
-package greetings
+package greetings_test
 
 import (
 	"fmt"
 	"testing"
+
+	"github.com/derailed/imhotep/golabs/greetings"
 )
 
 var useCases = []struct {
@@ -14,8 +16,8 @@ var useCases = []struct {
 
 func TestGreet(t *testing.T) {
 	for _, uc := range useCases {
-		expected := fmt.Sprintf(greetFormat, uc.expected)
-		actual := greet(uc.name)
+		expected := fmt.Sprintf(greetings.GreetFormat, uc.expected)
+		actual := greetings.Greet(uc.name)
 		if actual != expected {
 			t.Fatalf("Expecting `%s` GOT `%s`", expected, actual)
 		}

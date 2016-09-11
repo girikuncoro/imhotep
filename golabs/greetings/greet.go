@@ -5,11 +5,12 @@ package greetings
 
 import "fmt"
 
-const greetFormat = "Hello, my name is `%s!"
+// GreetFormat formal user greetings
+const GreetFormat = "Hello, my name is `%s!"
 const noName = "NoOne"
 
-// greet a person by name
-func greet(name string) string {
+// Greet a person by name
+func Greet(name string) string {
 	if len(name) == 0 {
 		name = noName
 	}
@@ -17,5 +18,5 @@ func greet(name string) string {
 }
 
 func format(name string) string {
-	return fmt.Sprintf(greetFormat, name)
+	return fmt.Sprintf(GreetFormat, name)
 }
