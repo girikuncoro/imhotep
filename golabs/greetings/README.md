@@ -12,6 +12,6 @@ go get github.com/derailed/imhotep/golabs/greetings
 
 * Add NoOne requirement
 * Add Visibility constraints
-* Add Table Tests
+* Add Example
 * Add Benchmarking
 
