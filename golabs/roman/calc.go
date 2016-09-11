@@ -3,11 +3,23 @@ Package roman provides an arabic number to roman calculator
 */
 package roman
 
-// RomanGlyphs provides a conversion table arabic->roman
-var RomanGlyphs = [...]struct {
+type tuple struct {
 	limit int
 	glyph string
-}{
+}
+
+var romanValues = func(tuples [13]tuple) map[rune]int {
+	vals := map[rune]int{}
+	for _, t := range tuples {
+		if len(t.glyph) == 1 {
+			vals[rune(t.glyph[0])] = t.limit
+		}
+	}
+	return vals
+}(RomanGlyphs)
+
+// RomanGlyphs provides a conversion table arabic->roman
+var RomanGlyphs = [...]tuple{
 	{1000, "M"},
 	{900, "CM"},
 	{500, "D"},
@@ -23,8 +35,8 @@ var RomanGlyphs = [...]struct {
 	{1, "I"},
 }
 
-// ArabicToRoman converts an arabic number to a Roman glyph
-func ArabicToRoman(n int) string {
+// ToRoman converts an arabic number to a Roman glyph
+func ToRoman(n int) string {
 	var res string
 	for _, tuple := range RomanGlyphs {
 		for n >= tuple.limit {
@@ -36,5 +48,15 @@ func ArabicToRoman(n int) string {
 	return res
 }
 
-// Fred is cool
-func Fred() {}
+// ToArabic converts a roman glyph to arabic
+func ToArabic(s string) int {
+	var res = 0
+	for index, r := range s {
+		if index+1 < len(s) && romanValues[r] < romanValues[[]rune(s)[index+1]] {
+			res -= romanValues[r]
+		} else {
+			res += romanValues[r]
+		}
+	}
+	return res
+}

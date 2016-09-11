@@ -38,12 +38,19 @@ var useCases = []struct {
 
 func TestArabicToRoman(t *testing.T) {
 	for _, uc := range useCases {
-		actual := roman.ArabicToRoman(uc.arabic)
+		actual := roman.ToRoman(uc.arabic)
 		expected := uc.glyph
 
 		if actual != expected {
 			t.Fatalf("(%d) Expected %s GOT %s", uc.arabic, expected, actual)
 		}
 	}
+}
 
+func TestRomanToArabic(t *testing.T) {
+	for _, uc := range useCases {
+		if actual := roman.ToArabic(uc.glyph); actual != uc.arabic {
+			t.Fatalf("Roman For %s -- Got %d expected `%d`", uc.glyph, actual, uc.arabic)
+		}
+	}
 }
