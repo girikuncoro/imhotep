@@ -17,6 +17,14 @@ func Greet(name string) string {
 	return format(name)
 }
 
+// CanaryGreet a person by name
+func CanaryGreet(name string) string {
+	if len(name) == 0 {
+		name = noName
+	}
+	return "Hello, my name is `" + name + "!"
+}
+
 func format(name string) string {
 	return fmt.Sprintf(GreetFormat, name)
 }
