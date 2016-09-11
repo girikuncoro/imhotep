@@ -1,6 +1,7 @@
-# GO Roman Calculator
+# Roman Calculator Package
 
-Converts an arabic number to a roman glyph
+Provides calculators for converting an arabic number
+to a roman glyph and vice versa
 
 ## Installation
 

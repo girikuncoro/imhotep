@@ -1,5 +1,6 @@
 /*
-Package roman provides an arabic number to roman calculator
+Package roman provides calculators for converting an arabic number
+to a roman glyph and vice versa
 */
 package roman
 
