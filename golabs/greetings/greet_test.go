@@ -5,13 +5,19 @@ import (
 	"testing"
 )
 
-func TestGreet(t *testing.T) {
-	var (
-		expected = fmt.Sprintf(greetFormat, "Fernand")
-		actual   = greet("Fernand")
-	)
+var useCases = []struct {
+	name, expected string
+}{
+	{"Fernand", "Fernand"},
+	{"", "NoOne"},
+}
 
-	if actual != expected {
-		t.Fatalf("Expecting `%s` GOT `%s`", expected, actual)
+func TestGreet(t *testing.T) {
+	for _, uc := range useCases {
+		expected := fmt.Sprintf(greetFormat, uc.expected)
+		actual := greet(uc.name)
+		if actual != expected {
+			t.Fatalf("Expecting `%s` GOT `%s`", expected, actual)
+		}
 	}
 }
