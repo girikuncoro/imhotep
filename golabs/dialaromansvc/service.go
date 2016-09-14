@@ -9,7 +9,7 @@ import (
 
 	"encoding/json"
 
-	"github.com/derailed/vmw/sources/roman"
+	"github.com/derailed/imhotep/golabs/roman"
 )
 
 type response struct {
@@ -18,19 +18,14 @@ type response struct {
 	URL    string `json:"url"`
 }
 
-func toRomanHandlerJSON(w http.ResponseWriter, r *http.Request) {
+func toRomanHandler(w http.ResponseWriter, r *http.Request) {
 	number, err := strconv.Atoi(r.URL.Query().Get("n"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusExpectationFailed)
 		return
 	}
 
-	glyph, err := roman.ToRoman(number)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusExpectationFailed)
-		return
-	}
-
+	glyph := roman.ToRoman(number)
 	resp := response{
 		Status: http.StatusOK,
 		Result: glyph,
@@ -47,7 +42,7 @@ func toRomanHandlerJSON(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[%d] %s", http.StatusOK, r.URL)
 }
 
-func toArabicHandlerJSON(w http.ResponseWriter, r *http.Request) {
+func toArabicHandler(w http.ResponseWriter, r *http.Request) {
 	n := roman.ToArabic(r.URL.Query().Get("g"))
 	resp := response{
 		Status: http.StatusOK,
@@ -71,8 +66,8 @@ func noMatchHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/roman", toRomanHandlerJSON)
-	http.HandleFunc("/arabic", toArabicHandlerJSON)
+	http.HandleFunc("/roman", toRomanHandler)
+	http.HandleFunc("/arabic", toArabicHandler)
 	http.HandleFunc("/", noMatchHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":9000", nil)
 }
